@@ -5,29 +5,54 @@ define [
 ], ($, Backbone, Router) ->
   SessionModel = Backbone.Model.extend(
     url: '/sessions'
+
     initialize: ->
+      self = this
+      $.ajaxSetup({
+        'beforeSend': (xhr) ->
+          xhr.setRequestHeader("accept", "application/json");
+      })
 
-      #Check for sessionStorage support
-      if Storage and sessionStorage
-        @supportStorage = true
-      return
+      $.ajaxPrefilter( (options, originalOptions, jqXHR) ->
 
-    login: (credentials) ->
-      that = this
-      _login = $.ajax(
-        url: @url
-        data: credentials
+        if self.get('token')?
+          jqXHR.setRequestHeader('X-Auth-Token', self.get('token'))
+      )
+
+    login: (params) ->
+      self = this
+
+      this.fetch(
+        data: params,
+        dataType: 'json',
         type: 'POST'
-        complete: (res) ->
-          response = JSON.parse(res.responseText)
-          if res.status == 201
-            that.set("token", response.token)
-            that.set("auth", true)
-            console.log(that.toJSON())
-          else if res.status == 401
-            console.log("code 401")
-        )
-      return
+        success: (model, xhr, options) ->
+          console.log('Success')
+          console.log(model)
+          sessionStorage.setItem('token', model.get('token'))
+          sessionStorage.setItem('name', model.get('name'))
+        error: (model, xhr, options) ->
+          console.log('Error')
+          console.log(options)
+          console.log(xhr)
+      )
+
+    logout: ->
+      self = this
+      _logout = $.ajax(
+        url: @url
+        type: 'DELETE'
+        success:(res) ->
+          self.clear()
+          self.id = null
+          sessionStorage.removeItem('token')
+          sessionStorage.removeItem('name')
+          console.log("success logout")
+          console.log(res)
+        error: (res) ->
+          console.log("error in logout")
+          console.log(res)
+      )
 
   )
   new SessionModel

@@ -25,9 +25,10 @@ define [
     _initConfiguration: ->
       self = this
 
-      $.ajaxPrefilter((options, originalOptions, jqXHR) ->
-        options.url = "#{self.options.api_endpoint}#{options.url}"
-      )
+      $.ajaxPrefilter \
+        (options, originalOptions, jqXHR) ->
+          options.url = "#{self.options.api_endpoint}#{options.url}"
+          no
 
     _initRoutes: ->
       @router = new Router()
