@@ -4,12 +4,14 @@ define [
   'backbone',
   'router',
 
-  'models/session'
+  'models/session',
+  'models/sprint',
+  'collections/sprints'
 
   'views/contacts',
   'views/login',
-  'views/sprints'
-], ($, _, Backbone, Router, Session, ContactsView, LoginView, SprintsView) ->
+  'views/sprints_collection'
+], ($, _, Backbone, Router, Session, Sprint, SprintsCollection, ContactsView, LoginView, SprintsCollectionView) ->
   class Application
     @defaults = 
       api_endpoint: "http://127.0.0.1:3000/api/v1"
@@ -30,6 +32,7 @@ define [
           options.url = "#{self.options.api_endpoint}#{options.url}"
           no
 
+
     _initRoutes: ->
       @router = new Router()
 
@@ -42,8 +45,9 @@ define [
         _view.render()
 
       @router.on 'route:sprints', (page) ->
-        _view = new SprintsView()
-        _view.render()
+        sprints = new SprintsCollection()
+        _view = new SprintsCollectionView(collection: sprints)
+        _view.render() 
 
       Backbone.history.start()
 

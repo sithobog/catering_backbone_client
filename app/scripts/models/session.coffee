@@ -10,7 +10,7 @@ define [
       self = this
       $.ajaxSetup({
         'beforeSend': (xhr) ->
-          xhr.setRequestHeader("accept", "application/json");
+          xhr.setRequestHeader("accept", "application/json")
       })
 
       $.ajaxPrefilter( (options, originalOptions, jqXHR) ->
@@ -27,8 +27,8 @@ define [
         dataType: 'json',
         type: 'POST'
         success: (model, xhr, options) ->
-          console.log('Success')
-          console.log(model)
+          #console.log('Success')
+          #console.log(model)
           sessionStorage.setItem('token', model.get('token'))
           sessionStorage.setItem('name', model.get('name'))
         error: (model, xhr, options) ->
@@ -36,6 +36,7 @@ define [
           console.log(options)
           console.log(xhr)
       )
+      return
 
     logout: ->
       self = this
@@ -53,6 +54,7 @@ define [
           console.log("error in logout")
           console.log(res)
       )
+      return
 
     getAuth: ->
       self = this
