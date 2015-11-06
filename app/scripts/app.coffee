@@ -52,9 +52,8 @@ define [
 
       Session.on 'change:auth', (session) ->
         self.checkAuth()
-
       # Check if user already logined
-      #Session.getAuth(callback)
+      Session.getAuth()
 
     checkAuth: ->
       if Session.get('auth') is true

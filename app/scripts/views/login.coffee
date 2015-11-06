@@ -15,7 +15,7 @@ define [
       'submit form.login': 'submit'
 
     initialize: () ->
-      # @listenTo @model, 'change', @render
+      #@listenTo Session, 'change', @render
 
     render: () ->
       @$el.html @template()

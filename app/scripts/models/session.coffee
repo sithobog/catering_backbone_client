@@ -54,6 +54,12 @@ define [
           console.log(res)
       )
 
+    getAuth: ->
+      self = this
+      if (sessionStorage.getItem('token') && sessionStorage.getItem('name'))
+        _token = sessionStorage.getItem('token')
+        _name = sessionStorage.getItem('name')
+        self.set({ auth: true, token: _token, name: _name })
   )
   new SessionModel
 
