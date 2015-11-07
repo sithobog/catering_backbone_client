@@ -1,0 +1,23 @@
+#user_panel{
+	margin-bottom: 10px;
+}
+
+.state{
+	padding: 3px;
+	font-weight: bold;
+}
+
+.pending{
+	border: 1px orange solid;
+	color: orange;
+}
+
+.running{
+	border: 1px green solid;
+	color: green;
+}
+
+.closed{
+	border: 1px red solid;
+	color: red;
+}
