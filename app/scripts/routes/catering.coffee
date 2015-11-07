@@ -6,3 +6,4 @@ define [
       "login": "login"
       "contacts": "contacts"
       "sprints": "sprints"
+      "sprints/:id": "sprint"
