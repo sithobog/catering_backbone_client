@@ -1,17 +1,24 @@
 <div id="user_panel"></div>
 <p>Sprint id is <b>{{sprint_id}}</b></p>
-{{#each days}}
-	<div class="day_body clearfix" style="border: 1px solid red; margin: 10px;">
-		<p>day number is {{day_number}}
-		{{#each categories}}
-		<p>Category name is <b>{{title}}</b></p>
-			{{#each dishes}}
-				<div class="well dish_body">
-					<p class="pull-right"><b>{{price}} UAH</b></p>
-					<p>Dish title is <b>{{title}}</b></p>
-					<p>Dish description is <b>{{description}}</b></p>
-				</div>
+<div id="tabs">
+	<ul class="nav nav-tabs">
+	{{#each days}}
+		<li><a href="#tabs-{{day_number}}">Day {{day_number}}</a></li>
+	{{/each}}
+	</ul>
+	{{#each days}}
+		<div id="tabs-{{day_number}}" class="day_body clearfix">
+			<p>day number is {{day_number}}
+			{{#each categories}}
+			<p>Category name is <b>{{title}}</b></p>
+				{{#each dishes}}
+					<div class="well dish_body">
+						<p class="pull-right"><b>{{price}} UAH</b></p>
+						<p>Dish title is <b>{{title}}</b></p>
+						<p>Dish description is <b>{{description}}</b></p>
+					</div>
+				{{/each}}
 			{{/each}}
-		{{/each}}
-  </div>
-{{/each}}
+	  </div>
+	{{/each}}
+</div>
