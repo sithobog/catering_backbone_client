@@ -7,4 +7,4 @@ define [
       "contacts": "contacts"
       "sprints": "sprints"
       "sprints/:id": "sprint"
-      "rations": "rations"
+      "sprints/:id/rations": "sprint_rations"

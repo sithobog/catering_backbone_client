@@ -53,14 +53,15 @@ define [
         _view.render()
 
       @router.on 'route:sprint', (sprint_id) ->
-
+        console.log("Show view of sprint")
+        console.log(sprint_id)
         _collection1 = new SprintsCollection()
         _view = new SprintView(sprint_id: sprint_id, collection: _collection1)
         _view.render()
 
-      @router.on 'route:rations', (page) ->
+      @router.on 'route:sprint_rations', (sprint_id) ->
         _collection2 = new DailyRationCollection()
-        _view = new DailyRationView(collection: _collection2)
+        _view = new DailyRationView(sprint_id: sprint_id ,collection: _collection2)
         _view.render()
 
       Backbone.history.start()

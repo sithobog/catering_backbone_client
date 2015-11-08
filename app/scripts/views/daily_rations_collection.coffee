@@ -17,11 +17,12 @@ define [
 
     events: {}
 
-    initialize: () ->
-      this.collection.bind('sync', this.render, this);
+    initialize: (options) ->
+      @sprint_id = options.sprint_id
+      this.collection.bind('sync', this.render, this)
 
     render: () ->
-      @$el.html @template(days: @collection.toJSON())
+      @$el.html @template(sprint_id: @sprint_id, days: @collection.toJSON())
 
       @panel.$el = @$('#user_panel')
       @panel.render()
