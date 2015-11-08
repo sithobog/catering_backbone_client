@@ -7,12 +7,14 @@ define [
   'models/session',
   'models/sprint',
   'collections/sprints'
+  'collections/daily_rations'
 
   'views/contacts',
   'views/login',
   'views/sprints_collection',
+  'views/daily_rations_collection'
   'views/sprint'
-], ($, _, Backbone, Router, Session, Sprint, SprintsCollection, ContactsView, LoginView, SprintsCollectionView, SprintView) ->
+], ($, _, Backbone, Router, Session, Sprint, SprintsCollection, DailyRationCollection, ContactsView, LoginView, SprintsCollectionView, DailyRationView, SprintView) ->
   class Application
     @defaults = 
       api_endpoint: "http://127.0.0.1:3000/api/v1"
@@ -52,8 +54,13 @@ define [
 
       @router.on 'route:sprint', (sprint_id) ->
 
-        _collection = new SprintsCollection()
-        _view = new SprintView(sprint_id: sprint_id, collection: _collection)
+        _collection1 = new SprintsCollection()
+        _view = new SprintView(sprint_id: sprint_id, collection: _collection1)
+        _view.render()
+
+      @router.on 'route:rations', (page) ->
+        _collection2 = new DailyRationCollection()
+        _view = new DailyRationView(collection: _collection2)
         _view.render()
 
       Backbone.history.start()

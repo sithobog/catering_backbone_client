@@ -1,0 +1,16 @@
+<div id="user_panel"></div>
+{{#each days}}
+	<div class="day_body clearfix" style="border: 1px solid red; margin: 10px;">
+		<p>day number is {{day_number}}
+		{{#each categories}}
+		<p>Category name is <b>{{title}}</b></p>
+			{{#each dishes}}
+				<div class="well dish_body">
+					<p class="pull-right"><b>{{price}} UAH</b></p>
+					<p>Dish title is <b>{{title}}</b></p>
+					<p>Dish description is <b>{{description}}</b></p>
+				</div>
+			{{/each}}
+		{{/each}}
+  </div>
+{{/each}}
