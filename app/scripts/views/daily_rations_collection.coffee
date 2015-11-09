@@ -8,7 +8,8 @@ define [
   'collections/daily_rations',
 
   'views/panel'
-], ($, _, ui, Backbone, JST, DailyRationCollection, PanelView) ->
+  'helpers/days'
+], ($, _, ui, Backbone, JST, DailyRationCollection, PanelView, DaysHelper) ->
   class SprintsCollectionView extends Backbone.View
     template: JST['app/scripts/templates/daily_rations_collection.hbs']
 
@@ -25,6 +26,15 @@ define [
     render: () ->
       @$el.html @template(sprint_id: @sprint_id, days: @collection.toJSON())
       $("#tabs").tabs()
+
+      $('input[type=checkbox]').click(() ->
+        id = $(this).attr('id')
+        input_el = $('#' + id + '-inp')
+        toggled = input_el.attr('disabled')
+        toggled = !toggled
+        input_el.prop('disabled', toggled)
+      )
+
       @panel.$el = @$('#user_panel')
       @panel.render()
       @panel.delegateEvents()

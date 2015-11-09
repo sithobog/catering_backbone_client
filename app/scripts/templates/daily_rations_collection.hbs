@@ -3,22 +3,30 @@
 <div id="tabs">
 	<ul class="nav nav-tabs">
 	{{#each days}}
-		<li><a href="#tabs-{{day_number}}">Day {{day_number}}</a></li>
+		<li><a href="#tabs-{{day_number}}">{{day_of_week day_number}}</a></li>
 	{{/each}}
 	</ul>
 	{{#each days}}
 		<div id="tabs-{{day_number}}" class="day_body clearfix">
-			<p>day number is {{day_number}}
-			{{#each categories}}
-			<p>Category name is <b>{{title}}</b></p>
-				{{#each dishes}}
-					<div class="well dish_body">
-						<p class="pull-right"><b>{{price}} UAH</b></p>
-						<p>Dish title is <b>{{title}}</b></p>
-						<p>Dish description is <b>{{description}}</b></p>
-					</div>
+			<form action="http://127.0.0.1:3000/api/v1" method="POST">
+				<h2>{{day_of_week day_number}}</h2>
+				{{#each categories}}
+				<h3>{{title}}</h3>
+				<div class="row">
+					{{#each dishes}}
+						<div class="well dish_body col-sm-6 clearfix">
+	  					<input type="checkbox" id="checkbox{{id}}">
+							<p class="pull-right"><b>{{price}} UAH</b></p>
+							<span><b>{{title}}</b></span>
+							<p><b>{{description}}</b></p>
+							<span>quantities</span>
+							<input type="number" id="checkbox{{id}}-inp" min="0" disabled name="{{../../id}}[dishes][{{id}}]" value="0">
+						</div>
+					{{/each}}
+				</div>
 				{{/each}}
-			{{/each}}
+				<input type="submit" class="btn btn-primary">
+			</form>
 	  </div>
 	{{/each}}
 </div>
