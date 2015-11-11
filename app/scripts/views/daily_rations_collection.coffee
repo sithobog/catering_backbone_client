@@ -17,23 +17,31 @@ define [
 
     panel: new PanelView()
 
-    events: {}
+    events: {
+      "click input[type=checkbox]": "bindInputs"
+    }  
 
     initialize: (options) ->
       @sprint_id = options.sprint_id
       this.collection.bind('sync', this.render, this)
 
+    #trigger disabled attribute of number input by checkbox
+    bindInputs: (event) ->
+      checkbox = event.target
+      number_input = $(checkbox).closest('.dish_body').find('input[type=number]')
+      if ($(checkbox)).is(":checked")
+        number_input.removeAttr('disabled')
+      else
+        number_input.prop('disabled', true)
+
+    #unbind collection events
+    onClose: ->
+      this.collection.unbind("change", this.render)
+
     render: () ->
       @$el.html @template(sprint_id: @sprint_id, days: @collection.toJSON())
+      #turn on jquery ui tabs widget
       $("#tabs").tabs()
-
-      $('input[type=checkbox]').click(() ->
-        id = $(this).attr('id')
-        input_el = $('#' + id + '-inp')
-        toggled = input_el.attr('disabled')
-        toggled = !toggled
-        input_el.prop('disabled', toggled)
-      )
 
       @panel.$el = @$('#user_panel')
       @panel.render()

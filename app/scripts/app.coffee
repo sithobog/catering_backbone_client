@@ -4,6 +4,8 @@ define [
   'backbone',
   'router',
 
+  'views/app_view'
+
   'models/session',
   'models/sprint',
   'collections/sprints'
@@ -14,8 +16,15 @@ define [
   'views/sprints_collection',
   'views/daily_rations_collection'
   'views/sprint'
-], ($, _, Backbone, Router, Session, Sprint, SprintsCollection, DailyRationCollection, ContactsView, LoginView, SprintsCollectionView, DailyRationView, SprintView) ->
+], ($, _, Backbone, Router, AppView, Session, Sprint, SprintsCollection, DailyRationCollection, ContactsView, LoginView, SprintsCollectionView, DailyRationView, SprintView) ->
   class Application
+
+    #remove all events from view that was closed
+    Backbone.View.prototype.close = ->
+      this.undelegateEvents()
+      if this.onClose
+        this.onClose()
+
     @defaults = 
       api_endpoint: "http://127.0.0.1:3000/api/v1"
     constructor: (options = {}) ->
@@ -61,8 +70,7 @@ define [
 
       @router.on 'route:sprint_rations', (sprint_id) ->
         _collection2 = new DailyRationCollection()
-        _view = new DailyRationView(sprint_id: sprint_id ,collection: _collection2)
-        _view.render()
+        AppView.showView(new DailyRationView(sprint_id: sprint_id ,collection: _collection2))
 
       Backbone.history.start()
 
@@ -73,6 +81,7 @@ define [
         self.checkAuth()
       # Check if user already logined
       Session.getAuth()
+
 
     checkAuth: ->
       if Session.get('auth') is true
