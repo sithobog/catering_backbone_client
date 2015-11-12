@@ -10,7 +10,7 @@ define [
 ], ($, _, Backbone, JST, SprintsCollection, PanelView) ->
   class SprintsCollectionView extends Backbone.View
     template: JST['app/scripts/templates/sprints_collection.hbs']
-
+    tagName: "form"
     el: '#container'
 
     panel: new PanelView()

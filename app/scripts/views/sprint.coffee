@@ -19,17 +19,11 @@ define [
     events: {}
 
     initialize: (options) ->
-      @sprint_id = options.sprint_id
-      @collection = options.collection
-      @collection.bind("sync", this.render, this)
-      console.log("From sprint view")
-      console.log(@collection)
-
+      @sprint = options.sprint
+      this.bind("sync", this.render, this)
 
     render: () ->
-      if @collection.size() != 0
-        _sprint = @collection.get(@sprint_id)
-        @$el.html @template(sprint: _sprint.toJSON())
+      @$el.html @template(sprint: @sprint.toJSON())
 
       @panel.$el = @$('#user_panel')
       @panel.render()

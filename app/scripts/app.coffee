@@ -4,7 +4,7 @@ define [
   'backbone',
   'router',
 
-  'views/app_view'
+  'views/app'
 
   'models/session',
   'models/sprint',
@@ -16,7 +16,9 @@ define [
   'views/sprints_collection',
   'views/daily_rations_collection'
   'views/sprint'
-], ($, _, Backbone, Router, AppView, Session, Sprint, SprintsCollection, DailyRationCollection, ContactsView, LoginView, SprintsCollectionView, DailyRationView, SprintView) ->
+  'views/form'
+], ($, _, Backbone, Router, AppView, Session, Sprint, SprintsCollection, DailyRationCollection,
+     ContactsView, LoginView, SprintsCollectionView, DailyRationView, SprintView, FormView) ->
   class Application
 
     #remove all events from view that was closed
@@ -62,15 +64,25 @@ define [
         _view.render()
 
       @router.on 'route:sprint', (sprint_id) ->
-        console.log("Show view of sprint")
-        console.log(sprint_id)
         _collection1 = new SprintsCollection()
-        _view = new SprintView(sprint_id: sprint_id, collection: _collection1)
-        _view.render()
+        _collection1.fetch().then(()->
+          sprint = _collection1.get(sprint_id)
+          console.log(sprint)
+          _view = new SprintView(sprint: sprint)
+          _view.render()
+        )
 
       @router.on 'route:sprint_rations', (sprint_id) ->
-        _collection2 = new DailyRationCollection()
-        AppView.showView(new DailyRationView(sprint_id: sprint_id ,collection: _collection2))
+        api_endpoint = Application.api_endpoint
+        _sprints_collection = new SprintsCollection()
+        _daily_rations_collection = new DailyRationCollection()
+        
+        _sprints_collection.fetch().then(()->
+          sprint = _sprints_collection.get(sprint_id)
+          _daily_rations_collection.fetch().then(()->
+            AppView.showView(new FormView(sprint,_daily_rations_collection,api_endpoint))
+          )
+        )
 
       Backbone.history.start()
 
