@@ -8,7 +8,9 @@ define [
   'views/daily_rations_collection'
   'views/panel'
 
-], ($, _, Backbone, JST, SprintView, DailyRationsCollectionView, PanelView) ->
+  'collections/daily_rations'
+
+], ($, _, Backbone, JST, SprintView, DailyRationsCollectionView, PanelView, DailyRationsCollection) ->
   class DailyRationsFormView extends Backbone.View
     template: JST['app/scripts/templates/form.hbs']
 
@@ -16,7 +18,9 @@ define [
 
     panel: new PanelView()
 
-    events: {}
+    events: {
+      "click button.btn-primary": "submit"
+    }
 
     initialize: (sprint, collection, api_endpoint) ->
       @sprint = sprint
@@ -43,3 +47,12 @@ define [
       @dailyRationView.$el = @$('#dailyRations')
       @dailyRationView.render()
       @dailyRationView.delegateEvents()
+
+    submit:(event) ->
+      event.preventDefault()
+      
+      #order = new Order()
+
+      creds = $("#order_form").serialize()
+      collection = new DailyRationsCollection()
+      collection.save(creds)

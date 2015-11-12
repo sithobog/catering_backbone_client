@@ -12,12 +12,15 @@ define [
     initialize: () ->
       self = this
 
-      $.ajaxPrefilter( (options, originalOptions, jqXHR) ->
-        options.xhrFields = { withCredentials: true }
+      $.ajaxSetup({
+        'beforeSend': (xhr) ->
+          xhr.setRequestHeader("accept", "application/json")
+      })
 
-        if sessionStorage.getItem('token')
-          jqXHR.setRequestHeader('X-Auth-Token',
-            sessionStorage.getItem('token'))
+      $.ajaxPrefilter( (options, originalOptions, jqXHR) ->
+
+        if sessionStorage.getItem('token')?
+          jqXHR.setRequestHeader('X-Auth-Token', sessionStorage.getItem('token'))
       )
 
       this.fetch(
@@ -31,3 +34,11 @@ define [
           console.log(options)
           console.log(xhr)
       )
+
+    save: (params) ->
+      # prepare params for post method
+      data = params
+      data = data.replace(/%5B/g,"[")
+      data = data.replace(/%5D/g,"]")
+
+      $.post(@url,data)
