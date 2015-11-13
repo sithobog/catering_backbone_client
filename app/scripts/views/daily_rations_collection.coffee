@@ -42,6 +42,9 @@ define [
       #turn on jquery ui tabs widget
       $("#tabs").tabs()
 
+      #turn on jquery ui accordion widget
+      $(".accordion").accordion()
+
       @panel.$el = @$('#user_panel')
       @panel.render()
       @panel.delegateEvents()

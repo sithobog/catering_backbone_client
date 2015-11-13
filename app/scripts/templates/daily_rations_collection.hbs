@@ -6,23 +6,40 @@
 	</ul>
 	{{#each days}}
 		<div id="tabs-{{day_number}}" class="day_body clearfix">
-				<h2>{{day_of_week day_number}}</h2>
-				{{#each categories}}
-				<h3>{{title}}</h3>
-				<div class="row">
-					{{#each dishes}}
-						<div class="well dish_body col-sm-6 clearfix">
-	  					<input type="checkbox">
-							<p class="pull-right"><b>{{price}} UAH</b></p>
-							<span><b>{{title}}</b></span>
-							<p><b>{{description}}</b></p>
-							<span>quantities</span>
-							<input type="number" class="form-control" disabled
-                    name="days[{{../../id}}][dishes][{{id}}]" value="0" min="0">
+			<h2>{{day_of_week day_number}}</h2>
+			<div class="row">
+				<div class="col-sm-8">
+					{{#each categories}}
+						<h3>{{title}}</h3>
+						<div class="row">
+							{{#each dishes}}
+								<div class="well dish_body col-sm-6 clearfix">
+						 			<input type="checkbox">
+									<p class="pull-right"><b>{{price}} UAH</b></p>
+									<span><b>{{title}}</b></span>
+									<p><b>{{description}}</b></p>
+									<span>quantities</span>
+									<input type="number" class="form-control" disabled
+					                 name="days[{{../../id}}][dishes][{{id}}]" value="0" min="0">
+								</div>
+							{{/each}}
 						</div>
 					{{/each}}
 				</div>
-				{{/each}}
+				<div class="col-sm-4 pre-order">
+					<div class="accordion">
+						{{#each ../days}}
+							<p class="day_name">{{day_of_week day_number}}</p>
+							<div clas="day_order" id="{{day_of_week day_number}}">
+								<p class="pull-left">Order total: </p>
+								<p class="pull-right">Left: {{max_total}}</p>
+							</div>
+						{{/each}}
+					</div>
+					<button class="previous btn btn-default">Previous day</button>
+					<button class="next btn btn-default">Next day</button>
+				</div>
+			</div>
 	  </div>
 	{{/each}}
 </div>
