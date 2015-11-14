@@ -4,8 +4,17 @@
 	<form id="order_form" role="form">
 	  <div id="sprintContainer">
 	  </div>
-  
-    <div id="dailyRations"></div>
+	  <div class="container">
+	  	<div id="tabs">
+	  		<ul class="nav nav-tabs">
+				{{#each days}}
+					<li><a href="#tabs-{{day_number}}">{{day_of_week day_number}}</a></li>
+				{{/each}}
+				</ul>
+				<div class="col-sm-8" id="dailyRations"></div>
+	  	</div>
+	    <div class="col-sm-4" id="pre-order"></div>
+    </div>
     <button class="btn btn-primary">Send order!</button>
   </form>
 </div>

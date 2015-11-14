@@ -7,10 +7,11 @@ define [
   'views/sprint'
   'views/daily_rations_collection'
   'views/panel'
+  'views/pre_order'
 
   'collections/daily_rations'
 
-], ($, _, Backbone, JST, SprintView, DailyRationsCollectionView, PanelView, DailyRationsCollection) ->
+], ($, _, Backbone, JST, SprintView, DailyRationsCollectionView, PanelView, PreOrderView, DailyRationsCollection) ->
   class DailyRationsFormView extends Backbone.View
     template: JST['app/scripts/templates/form.hbs']
 
@@ -30,9 +31,10 @@ define [
       console.log(@sprint)
       @sprintView = new SprintView(sprint: @sprint)
       @dailyRationView = new DailyRationsCollectionView(@daily_rations_collection)
+      @preOrderView = new PreOrderView(collection: @daily_rations_collection)
 
     render: ->
-      @$el.html @template()
+      @$el.html @template(days: @daily_rations_collection.toJSON())
 
       @panel.$el = @$('#user_panel')
       @panel.render()
@@ -47,6 +49,11 @@ define [
       @dailyRationView.$el = @$('#dailyRations')
       @dailyRationView.render()
       @dailyRationView.delegateEvents()
+
+      # Render pre_order field
+      @preOrderView.$el = @$('#pre-order')
+      @preOrderView.render()
+      @preOrderView.delegateEvents()
 
     submit:(event) ->
       event.preventDefault()

@@ -21,6 +21,9 @@ define [
      ContactsView, LoginView, SprintsCollectionView, DailyRationView, SprintView, FormView) ->
   class Application
 
+    #activate pub/sub events
+    Backbone.pubSub = _.extend({}, Backbone.Events)
+
     #remove all events from view that was closed
     Backbone.View.prototype.close = ->
       this.undelegateEvents()

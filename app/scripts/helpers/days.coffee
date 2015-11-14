@@ -3,7 +3,7 @@ define [
 ], (Handlebars) ->
 	
 	Handlebars.registerHelper('day_of_week', (day) ->
-		_days = ["Monday", "Tuesday", "Wednesday", "Thursday"
-		, "Friday", "Saturday", "Sunday"]
+		_days = ["monday", "tuesday", "wednesday", "thursday"
+		, "friday", "saturday", "sunday"]
 		_days[day]
 	)

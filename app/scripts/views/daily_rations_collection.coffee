@@ -6,14 +6,12 @@ define [
   'templates'
 
   'collections/daily_rations',
+  'views/categories_collection'
 
-  'views/panel'
   'helpers/days'
-], ($, _, ui, Backbone, JST, DailyRationCollection, PanelView, DaysHelper) ->
-  class SprintsCollectionView extends Backbone.View
+], ($, _, ui, Backbone, JST, DailyRationCollection, CategoriesCollectionView, DaysHelper) ->
+  class DailyRationCollectionView extends Backbone.View
     template: JST['app/scripts/templates/daily_rations_collection.hbs']
-
-    panel: new PanelView()
 
     events: {
       "click input[type=checkbox]": "bindInputs"
@@ -22,6 +20,8 @@ define [
     initialize: (collection) ->
       this.collection = collection
       this.collection.bind('sync', this.render, this)
+
+      @categories_collection_view = new CategoriesCollectionView(categories: collection["models"][0]["nested_collection"])
 
     #trigger disabled attribute of number input by checkbox
     bindInputs: (event) ->
@@ -32,6 +32,10 @@ define [
       else
         number_input.prop('disabled', true)
 
+      Backbone.pubSub.trigger('add_dish', event)
+
+
+
     #unbind collection events
     onClose: ->
       this.collection.unbind("change", this.render)
@@ -41,10 +45,3 @@ define [
 
       #turn on jquery ui tabs widget
       $("#tabs").tabs()
-
-      #turn on jquery ui accordion widget
-      $(".accordion").accordion()
-
-      @panel.$el = @$('#user_panel')
-      @panel.render()
-      @panel.delegateEvents()
