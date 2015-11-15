@@ -15,6 +15,6 @@ define [
 
       models = new CategoryCollection()
       _.each(self.attributes["categories"], (category)->
-        models.add(new CategoryModel(title: category["title"], collection: category["dishes"]))
+        models.add(new CategoryModel(id: category["id"], title: category["title"], collection: category["dishes"]))
       )
       @nested_collection = models

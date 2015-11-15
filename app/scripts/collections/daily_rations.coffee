@@ -10,7 +10,6 @@ define [
     url: '/daily_rations'
 
     initialize: () ->
-      console.log("DAILY RATION COLLECTION IS CREATED")
       self = this
 
       $.ajaxSetup({

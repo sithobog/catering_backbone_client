@@ -11,8 +11,10 @@ define [
 
     events: {}
 
-    initialize: () ->
+    initialize: (options) ->
+      @collection = options.collection
+      @day = options.day
 
     render: () ->
-      @$el.html @template()
+      @$el.html @template(dishes: @collection.toJSON(), day: @day)
 

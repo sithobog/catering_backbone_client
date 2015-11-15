@@ -18,10 +18,8 @@ define [
     }  
 
     initialize: (collection) ->
-      this.collection = collection
-      this.collection.bind('sync', this.render, this)
-
-      @categories_collection_view = new CategoriesCollectionView(categories: collection["models"][0]["nested_collection"])
+      @collection = collection
+      @collection.bind('sync', this.render, this)
 
     #trigger disabled attribute of number input by checkbox
     bindInputs: (event) ->
@@ -35,6 +33,18 @@ define [
       Backbone.pubSub.trigger('add_dish', event)
 
 
+    renderCategories: ->
+      this_collection = @collection
+      i=0
+      _.each(this_collection["models"],->
+        view = new CategoriesCollectionView(collection: this_collection, day_number: i)
+        view.$el = @$('.categories-'+i)
+        view.render()
+        view.delegateEvents()
+        i=i+1
+      )
+
+
 
     #unbind collection events
     onClose: ->
@@ -43,5 +53,6 @@ define [
     render: () ->
       @$el.html @template(days: @collection.toJSON())
 
-      #turn on jquery ui tabs widget
+      this.renderCategories()
+
       $("#tabs").tabs()
