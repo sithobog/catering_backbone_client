@@ -114,8 +114,21 @@ define [
       remaining_balance_selector = active_day_selector.parent().find(".remaining_balance")
       balance = ready_hash[current_day]-sum
 
+      this.disableSubmit(balance, active_day_selector)
+
       remaining_balance_selector.text(balance+" UAH")
       
+    # disableSubmit button if balance<0
+    disableSubmit: (balance,active_day_selector)->
+      if balance<0
+        $("button.btn.btn-primary").prop("disabled", true)
+        active_day_selector.parent().addClass("overrun")
+        active_day_selector.parent().prev().addClass("overrun")
+      else
+        $("button.btn.btn-primary").removeAttr("disabled")
+        active_day_selector.parent().removeClass("overrun")
+        active_day_selector.parent().prev().removeClass("overrun")
+
 
     renderItems: ->
       @view = new ItemView(collection: @dish_for_render)

@@ -2,7 +2,8 @@
 	<div class='item_in_order dish_id_in_order-{{id}}'>
 		<span class='title_for_dish'>{{title}} X </span>
 	  <span class='quantity_in_order'>{{quantity}}</span>
-	  <span class='currency pull-right'>UAH</span>
+	  <span class='currency pull-right'>&nbsp;UAH</span>
+	  {{! space after calculated price is required! it is necessary for calculating sum}}
 	  <span class='price_for_dish pull-right'>{{math quantity "*" price}} </span>
 	</div>
 {{/each}}

@@ -17,8 +17,9 @@ define [
     initialize: (options) ->
       @collection = options.collection
 
-      #listen to event
-      Backbone.pubSub.on('change-tab', this.checkActive);
+      #listen to events
+      Backbone.pubSub.on('change-tab', this.checkActive)
+      Backbone.pubSub.on('refresh-numbers', this.addNumbers)
 
     checkActive: ->
       active = $("#tabs").tabs("option","active")
@@ -31,6 +32,25 @@ define [
         $("button.previous").prop("disabled", true)
       else
         $("button.previous").removeAttr("disabled")
+
+    addNumbers: ->
+      console.log("ADD NUMBERS IS TRIGGERED!")
+      selected_tab_selector = $(".day_body[aria-hidden='false']")
+      current_day = selected_tab_selector.find(".current_day").text()
+      active_day_selector = $(".day_order."+current_day)
+
+      titles = active_day_selector.parent().find(".title_for_dish")
+      console.log("title length is")
+      console.log(titles.length)
+      i=0
+      _.each(titles, (title)->
+        console.log("title is")
+        console.log(title)
+        title =$(title)
+        current_text = title.text()
+        title.text(i+1+". "+current_text)
+        i= i+1
+      )
 
     changeDay: ->
       event.preventDefault()

@@ -1,20 +1,42 @@
+hr{
+	margin: 0 0 5px 0;
+	border-top: 1px solid rgb(227,228,230);
+}
+
+hr.before_summary{
+	margin: 10px 5px;
+	border-top: 1px solid rgb(237,231,219);
+}
+
 .pre-order{
-	border: 2px solid orange;
-	background: #aaa;
+	border: 1px solid rgb(145,158,141);
+	background: #fff;
 	border-radius: 10px;
+	padding: 15px;
+}
+
+.overrun{
+	background-color: rgb(255,171,171) !important;
+}
+
+.day_name, .items-container{
+	background-color: rgb(171,221,170);
+}
+
+.items-container{
+	border:1px solid rgb(145,158,141);
+	border-top: none;
 }
 
 .pre-order{
 	.day_name{
 		text-align: center;
-		border: 1px solid red;
-		margin: 3px;
-		border-radius: 3px;
 		text-transform: capitalize;
+		margin: 0;
+		border:1px solid rgb(145,158,141);
 	}
 	.day_order{
-		border: 1px solid green;
-		margin: 3px;
+		padding: 0 8px;
 	}
 }
 
@@ -33,6 +55,16 @@
 			background-color: rgb(255, 153, 0);
 		}
 	}
+}
+
+.order_summary{
+	margin: 0;
+	font-size: 18px;
+	text-align: center;
+}
+
+.price_for_dish, .currency{
+	font-weight: bold;
 }
 
 .price{
