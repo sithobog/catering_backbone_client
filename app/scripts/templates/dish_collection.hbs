@@ -1,11 +1,11 @@
 {{#each dishes}}
-	<div class="well dish_body col-sm-6 clearfix">
+	<div class="well dish_body col-sm-6 clearfix" dish_id="{{id}}">
 		<input type="checkbox">
 		<p class="pull-right"><span class="price">{{price}}</span> UAH</p>
 		<span class="dish_title">{{title}}</span>
 		<p><b>{{description}}</b></p>
 		<span>quantities</span>
 		<input type="number" class="form-control quantity" disabled
-	              name="days[{{../day}}][dishes][{{id}}]" value="1" min="0">
+	              name="days[{{../day_id}}][dishes][{{id}}]" value="1" min="0">
 	</div>
 {{/each}}

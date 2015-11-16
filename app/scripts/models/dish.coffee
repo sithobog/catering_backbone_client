@@ -5,3 +5,7 @@ define [
   'use strict';
 
   class DishModel extends Backbone.Model
+
+  	defaults:{
+  		status: "inactive"
+  	}

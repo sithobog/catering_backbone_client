@@ -5,7 +5,7 @@ define [
   'backbone'
   'templates'
 
-  'collections/daily_rations',
+  'collections/daily_rations'
   'views/categories_collection'
 
   'helpers/days'
@@ -13,38 +13,29 @@ define [
   class DailyRationCollectionView extends Backbone.View
     template: JST['app/scripts/templates/daily_rations_collection.hbs']
 
-    events: {
-      "click input[type=checkbox]": "bindInputs"
-    }  
+    events: {}
 
     initialize: (collection) ->
       @collection = collection
       @collection.bind('sync', this.render, this)
-
-    #trigger disabled attribute of number input by checkbox
-    bindInputs: (event) ->
-      checkbox = event.target
-      number_input = $(checkbox).closest('.dish_body').find('input[type=number]')
-      if ($(checkbox)).is(":checked")
-        number_input.removeAttr('disabled')
-      else
-        number_input.prop('disabled', true)
-
-      Backbone.pubSub.trigger('add_dish', event)
-
+      #create array of days_id
+      days = []
+      _.each(@collection["models"], (element)->
+        days.push(element["attributes"]["id"])
+      )
+      @day_ids = days
 
     renderCategories: ->
       this_collection = @collection
+      this_day_ids = @day_ids
       i=0
       _.each(this_collection["models"],->
-        view = new CategoriesCollectionView(collection: this_collection, day_number: i)
+        view = new CategoriesCollectionView(collection: this_collection, day_number: i, day_id: this_day_ids[i])
         view.$el = @$('.categories-'+i)
         view.render()
         view.delegateEvents()
         i=i+1
       )
-
-
 
     #unbind collection events
     onClose: ->

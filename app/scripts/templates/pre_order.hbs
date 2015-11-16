@@ -2,7 +2,10 @@
 	<div class="accordion">
 		{{#each days}}
 			<p class="day_name">{{day_of_week day_number}}</p>
-			<div class="clearfix day_order {{day_of_week day_number}}">
+			<div class="clearfix">
+				{{#each ../categories_id}}
+				<div class="day_order {{day_of_week ../day_number}} dish_in_category-{{this}}"></div>
+				{{/each}}
 				<p class="pull-left">Order total:<span class="order_total"></span> </p>
 				<p class="pull-right">Left: <span class="remaining_balance">{{max_total}}</span></p>
 			</div>
