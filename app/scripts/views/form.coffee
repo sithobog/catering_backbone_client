@@ -21,6 +21,7 @@ define [
 
     events: {
       "click button.btn-primary": "submit"
+      "click .ui-tabs-anchor": "listAccordion"
     }
 
     initialize: (sprint, collection, api_endpoint) ->
@@ -30,6 +31,14 @@ define [
       @sprintView = new SprintView(sprint: @sprint)
       @dailyRationView = new DailyRationsCollectionView(@daily_rations_collection)
       @preOrderView = new PreOrderView(collection: @daily_rations_collection)
+
+
+    listAccordion: (event) ->
+      link_in_tab = $(event.target)
+      day = link_in_tab.data("day-in-tab")
+      $(".accordion" ).accordion( "option", "active", day )
+
+      Backbone.pubSub.trigger('change-tab')
 
     render: ->
       @$el.html @template(days: @daily_rations_collection.toJSON())

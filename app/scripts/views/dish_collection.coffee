@@ -41,7 +41,7 @@ define [
     updateQuantity: (event) ->
       initiator = event.target
       dish_body = $(initiator).closest('.dish_body')
-      dish_id = +dish_body.attr("dish_id")
+      dish_id = +dish_body.data("dish-id")
       input_number_selector = dish_body.find("input[type='number']")
       quantity = input_number_selector.val()
       model = @collection.get(dish_id)
@@ -61,7 +61,7 @@ define [
 
     removeItem: (event) ->
       checkbox = event.target
-      dish_id = +$(checkbox).closest('.dish_body').attr("dish_id")
+      dish_id = +$(checkbox).closest('.dish_body').data("dish-id")
       model = @collection.get(dish_id)
       model.set(status: "inactive")
       @dish_for_render.remove(dish_id)
@@ -71,7 +71,7 @@ define [
 
     addItem: (event) ->
       checkbox = event.target
-      dish_id = +$(checkbox).closest('.dish_body').attr("dish_id")
+      dish_id = +$(checkbox).closest('.dish_body').data("dish-id")
       input_number_selector = $(checkbox).closest(".dish_body").find("input[type='number']")
       quantity = input_number_selector.val()
 
