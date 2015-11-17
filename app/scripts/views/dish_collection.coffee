@@ -146,13 +146,19 @@ define [
     disableSubmit: (balance,active_day_selector)->
       if balance<0
         $("button.btn.btn-primary").prop("disabled", true)
-        active_day_selector.parent().addClass("overrun")
-        active_day_selector.parent().prev().addClass("overrun")
+        active_day_selector.parent().addClass("outspend")
+        active_day_selector.parent().prev().addClass("outspend")
       else
         $("button.btn.btn-primary").removeAttr("disabled")
-        active_day_selector.parent().removeClass("overrun")
-        active_day_selector.parent().prev().removeClass("overrun")
+        active_day_selector.parent().removeClass("outspend")
+        active_day_selector.parent().prev().removeClass("outspend")
+        this.checkOutspentDays()
 
+    checkOutspentDays: ->
+      overrun_days = $("#pre-order").find(".day_name.outspend")
+      #keep submit disabled if some day is outspend
+      if overrun_days.length != 0
+        $("button.btn.btn-primary").prop("disabled", true)
 
     renderItems: ->
       @view = new ItemView(collection: @dish_for_render)
