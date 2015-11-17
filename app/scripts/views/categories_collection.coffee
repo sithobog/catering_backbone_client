@@ -40,6 +40,7 @@ define [
       this_category_ids = @category_ids
       this_day_id = @day_id
       this_prices = @limit_balance
+      events_for_render = this.events
       _.each(@category_collection,->
         #create view for collection
         view = new DishCollectionView(day_id: this_day_id,limit_balance: this_prices, collection: this_collection["models"][this_day]["nested_collection"]["models"][i]["nested_collection"], day: this_day, category_id: this_category_ids[i])

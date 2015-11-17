@@ -39,16 +39,10 @@ define [
       current_day = selected_tab_selector.find(".current_day").text()
       active_day_selector = $(".day_order."+current_day)
 
-      titles = active_day_selector.parent().find(".title_for_dish")
-      console.log("title length is")
-      console.log(titles.length)
-      i=0
-      _.each(titles, (title)->
-        console.log("title is")
-        console.log(title)
-        title =$(title)
-        current_text = title.text()
-        title.text(i+1+". "+current_text)
+      numbers = active_day_selector.parent().find(".number_in_order")
+      i=1
+      _.each(numbers, (number)->
+        $(number).text(i+". ")
         i= i+1
       )
 

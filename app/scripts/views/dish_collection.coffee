@@ -52,7 +52,6 @@ define [
 
 
     filterCollection: ->
-
       #fill DishCollection with active dishes for render
       filtered_collection = @collection.where({ status: "active"})
       @dish_for_render.reset(filtered_collection)
@@ -63,7 +62,7 @@ define [
       checkbox = event.target
       dish_id = +$(checkbox).closest('.dish_body').data("dish-id")
       model = @collection.get(dish_id)
-      model.set(status: "inactive")
+      model.set(status: "inactive", {silent: true})
       @dish_for_render.remove(dish_id)
 
 
@@ -108,7 +107,7 @@ define [
       order_total = active_day_selector.parent().find(".order_total")
       order_total.text(sum+" UAH")
 
-      # create objects week_day: limit_balance
+      # create objects {week_day: limit_balance}
       ready_hash = _.object(@week_days, @limit_balance)
 
       remaining_balance_selector = active_day_selector.parent().find(".remaining_balance")
@@ -135,7 +134,6 @@ define [
       @view.$el = $('.dish_in_category-'+@category_id+'.day_order.'+@week_days[@day])
       @view.render()
       @view.delegateEvents()
-
 
     render: () ->
       @$el.html @template(dishes: @collection.toJSON(), day_id: @day_id)

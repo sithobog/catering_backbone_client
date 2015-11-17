@@ -26,6 +26,7 @@ define [
       @day_ids = days
 
     renderCategories: ->
+      events_for_view = this.events
       this_collection = @collection
       this_day_ids = @day_ids
       i=0

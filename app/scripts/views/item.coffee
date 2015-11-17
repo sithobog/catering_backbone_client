@@ -21,6 +21,6 @@ define [
     render: () ->
       @$el.html(@template(items: @collection.toJSON()))
 
-      #Backbone.pubSub.trigger('refresh-numbers')
+      Backbone.pubSub.trigger('refresh-numbers')
 
 
