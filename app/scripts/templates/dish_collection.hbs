@@ -4,8 +4,14 @@
 		<p class="pull-right"><span class="price">{{price}}</span> UAH</p>
 		<span class="dish_title">{{title}}</span>
 		<p><b>{{description}}</b></p>
-		<span>quantities</span>
-		<input type="number" class="form-control quantity" disabled
-	              name="days[{{../day_id}}][dishes][{{id}}]" value="1" min="0">
+		<div class="quantities">
+			<div>Quantities: </div>
+			<div class="number_field">
+				<button class="trigger_disabled minus" data-value="-1" disabled>-</button>
+				<input type="number" class="form-control quantity trigger_disabled" disabled
+			              name="days[{{../day_id}}][dishes][{{id}}]" value="1" min="0">
+			  <button class="plus trigger_disabled" data-value="1" disabled>+</button>
+		  </div>
+	  </div>
 	</div>
 {{/each}}

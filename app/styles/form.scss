@@ -78,3 +78,60 @@ hr.before_summary{
 .ui-tabs-anchor, .current_day{
 	text-transform: capitalize;
 }
+
+
+//remove arrows from input[number]
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+input[type=number]{
+	text-align: center;
+	width: 30px;
+	height: 24px;
+	border-radius: 0;
+	padding: 0;
+}
+
+.number_field{
+	//remove spaces between inline-blocks
+	font-size: 0;
+	display: inline;
+}
+
+input[type=number], .minus, .plus{
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.minus, .plus{
+	font-size: 14px;
+	text-align: center;
+	cursor: pointer;
+	width:25px;
+	height: 24px;
+	border: 1px solid gray;
+	background-color: #f2f2f2;
+	&:disabled{
+		cursor: not-allowed;
+		opacity: .6;
+	}
+}
+
+.minus{
+	border-radius: 3px 0 0 3px;
+}
+
+.plus{
+	border-radius: 0 3px 3px 0;
+}
+
+.quantities div{
+	display: inline-block;
+	vertical-align: middle;
+}

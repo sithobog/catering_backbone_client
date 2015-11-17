@@ -34,7 +34,6 @@ define [
         $("button.previous").removeAttr("disabled")
 
     addNumbers: ->
-      console.log("ADD NUMBERS IS TRIGGERED!")
       selected_tab_selector = $(".day_body[aria-hidden='false']")
       current_day = selected_tab_selector.find(".current_day").text()
       active_day_selector = $(".day_order."+current_day)

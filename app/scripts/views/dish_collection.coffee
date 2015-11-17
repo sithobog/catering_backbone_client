@@ -12,6 +12,7 @@ define [
 
     events: {
       "click input[type=checkbox]": "bindInputs"
+      "click .minus, .plus": "changeInputValue"
       "change input[type=number]": "updateQuantity"
       "keyup input[type=number]": "updateQuantity"
     }
@@ -28,28 +29,52 @@ define [
     bindInputs: (event) ->
 
       checkbox = event.target
-      number_input = $(checkbox).closest('.dish_body').find('input[type=number]')
+      dish_body = $(checkbox).closest('.dish_body')
+      elements = dish_body.find('.trigger_disabled')
       if ($(checkbox)).is(":checked")
-        number_input.removeAttr('disabled')
+        elements.removeAttr('disabled')
+        this.checkMinusButton(event)
         this.addItem(event)
       else
-        number_input.prop('disabled', true)
+        elements.prop('disabled', true)
         this.removeItem(event)
 
       this.calculatePrice()
+
+    changeInputValue: (event)->
+      event.preventDefault()
+      clicked_button = event.target
+      number_input = $(clicked_button).closest('.number_field').find('input[type=number]')
+      value_from_button = $(clicked_button).data("value")
+      number_input.val(+number_input.val()+value_from_button)
+      this.updateQuantity(event)
+
+    checkMinusButton: (event) ->
+      number_field = $(event.target).closest('.dish_body').find('.number_field')
+      current_value = +number_field.find('input[type=number]').val()
+      if current_value <= 1
+        number_field.find(".minus").prop("disabled", true)
+      else
+        number_field.find(".minus").removeAttr("disabled")
 
     updateQuantity: (event) ->
       initiator = event.target
       dish_body = $(initiator).closest('.dish_body')
       dish_id = +dish_body.data("dish-id")
       input_number_selector = dish_body.find("input[type='number']")
-      quantity = input_number_selector.val()
+      quantity = +input_number_selector.val()
+      #prevent negative input
+      if quantity < 1
+        input_number_selector.val(1)
+        quantity = 1
+
       model = @collection.get(dish_id)
       model.set(quantity: quantity)
 
+      this.checkMinusButton(event)
+
       # re-calculate price
       this.calculatePrice()
-
 
     filterCollection: ->
       #fill DishCollection with active dishes for render
