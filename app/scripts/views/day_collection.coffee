@@ -5,13 +5,13 @@ define [
   'backbone'
   'templates'
 
-  'collections/daily_rations'
+  'collections/day_collection'
   'views/categories_collection'
 
   'helpers/days'
-], ($, _, ui, Backbone, JST, DailyRationCollection, CategoriesCollectionView, DaysHelper) ->
-  class DailyRationCollectionView extends Backbone.View
-    template: JST['app/scripts/templates/daily_rations_collection.hbs']
+], ($, _, ui, Backbone, JST, DaysCollection, CategoriesCollectionView, DaysHelper) ->
+  class DayCollectionView extends Backbone.View
+    template: JST['app/scripts/templates/day_collection.hbs']
 
     events: {}
 

@@ -9,16 +9,16 @@ define [
   'models/session',
   'models/sprint',
   'collections/sprints'
-  'collections/daily_rations'
+  'collections/day_collection'
 
   'views/contacts',
   'views/login',
   'views/sprints_collection',
-  'views/daily_rations_collection'
+  'views/day_collection'
   'views/sprint'
   'views/form'
-], ($, _, Backbone, Router, AppView, Session, Sprint, SprintsCollection, DailyRationCollection,
-     ContactsView, LoginView, SprintsCollectionView, DailyRationView, SprintView, FormView) ->
+], ($, _, Backbone, Router, AppView, Session, Sprint, SprintsCollection, DayCollection,
+     ContactsView, LoginView, SprintsCollectionView, DayCollectionView, SprintView, FormView) ->
   class Application
 
     #activate pub/sub events
@@ -78,12 +78,12 @@ define [
       @router.on 'route:sprint_rations', (sprint_id) ->
         api_endpoint = Application.api_endpoint
         _sprints_collection = new SprintsCollection()
-        _daily_rations_collection = new DailyRationCollection()
+        _day_collection = new DayCollection()
         
         _sprints_collection.fetch().then(()->
           sprint = _sprints_collection.get(sprint_id)
-          _daily_rations_collection.fetch().then(()->
-            AppView.showView(new FormView(sprint,_daily_rations_collection,api_endpoint))
+          _day_collection.fetch().then(()->
+            AppView.showView(new FormView(sprint,_day_collection,api_endpoint))
           )
         )
 

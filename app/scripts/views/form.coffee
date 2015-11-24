@@ -5,13 +5,13 @@ define [
   'templates'
 
   'views/sprint'
-  'views/daily_rations_collection'
+  'views/day_collection'
   'views/panel'
   'views/pre_order'
 
-  'collections/daily_rations'
+  'collections/daily_ration_collection'
 
-], ($, _, Backbone, JST, SprintView, DailyRationsCollectionView, PanelView, PreOrderView, DailyRationsCollection) ->
+], ($, _, Backbone, JST, SprintView, DayCollectionView, PanelView, PreOrderView, DailyRationCollection) ->
   class DailyRationsFormView extends Backbone.View
     template: JST['app/scripts/templates/form.hbs']
 
@@ -26,11 +26,11 @@ define [
 
     initialize: (sprint, collection, api_endpoint) ->
       @sprint = sprint
-      @daily_rations_collection = collection
+      @day_collection = collection
       @api_endpoint = api_endpoint
       @sprintView = new SprintView(sprint: @sprint)
-      @dailyRationView = new DailyRationsCollectionView(@daily_rations_collection)
-      @preOrderView = new PreOrderView(collection: @daily_rations_collection)
+      @daysView = new DayCollectionView(@day_collection)
+      @preOrderView = new PreOrderView(collection: @day_collection)
 
 
     listAccordion: (event) ->
@@ -41,7 +41,7 @@ define [
       Backbone.pubSub.trigger('change-tab')
 
     render: ->
-      @$el.html @template(days: @daily_rations_collection.toJSON())
+      @$el.html @template(days: @day_collection.toJSON())
 
       @panel.$el = @$('#user_panel')
       @panel.render()
@@ -53,9 +53,9 @@ define [
       @sprintView.delegateEvents()
 
       # Render form tabs
-      @dailyRationView.$el = @$('#dailyRations')
-      @dailyRationView.render()
-      @dailyRationView.delegateEvents()
+      @daysView.$el = @$('#daysCollection')
+      @daysView.render()
+      @daysView.delegateEvents()
 
       # Render pre_order field
       @preOrderView.$el = @$('#pre-order')
@@ -66,5 +66,5 @@ define [
       event.preventDefault()
       
       creds = $("#order_form").serialize()
-      collection = new DailyRationsCollection()
+      collection = new DailyRationCollection()
       collection.save(creds)
