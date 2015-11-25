@@ -1,0 +1,10 @@
+<h2 class="text-center">Your order for sprint #{{sprint.id}}</h2>
+{{#each order_items}}
+	<div class='col-sm-3 well'>
+		<div>Sprint_id is {{sprint_id}}</div>
+		<div>Day id is {{day_id}}</div>
+		<div>Dish id is {{dish_id}}</div>
+		<div>Price is {{price}}</div>
+		<div>Quantity is {{quantity}}</div>
+	</div>
+{{/each}}

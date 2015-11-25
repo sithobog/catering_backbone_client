@@ -8,3 +8,4 @@ define [
       "sprints": "sprints"
       "sprints/:id": "sprint"
       "sprints/:id/rations": "sprint_rations"
+      "order/:id": "order"

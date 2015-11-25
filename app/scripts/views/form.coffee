@@ -3,15 +3,17 @@ define [
   'underscore'
   'backbone'
   'templates'
+  'router'
 
   'views/sprint'
   'views/day_collection'
   'views/panel'
   'views/pre_order'
+  'views/daily_ration'
 
   'collections/daily_ration_collection'
 
-], ($, _, Backbone, JST, SprintView, DayCollectionView, PanelView, PreOrderView, DailyRationCollection) ->
+], ($, _, Backbone, JST, Router, SprintView, DayCollectionView, PanelView, PreOrderView, DailyRationView, DailyRationCollection) ->
   class DailyRationsFormView extends Backbone.View
     template: JST['app/scripts/templates/form.hbs']
 
@@ -31,7 +33,13 @@ define [
       @sprintView = new SprintView(sprint: @sprint)
       @daysView = new DayCollectionView(@day_collection)
       @preOrderView = new PreOrderView(collection: @day_collection)
+      @router = new Router()
 
+      this_view = this
+      this_sprint = @sprint
+      @router.on 'route:order', (sprint_id) ->
+        _view = new DailyRationView(sprint: this_sprint, collection: this_view.render_collection)
+        _view.render()
 
     listAccordion: (event) ->
       link_in_tab = $(event.target)
@@ -65,6 +73,15 @@ define [
     submit:(event) ->
       event.preventDefault()
       
-      creds = $("#order_form").serialize()
+      creds = $("#order_form").serializeArray()
+
       collection = new DailyRationCollection()
-      collection.save(creds)
+
+      collection.fillCollection(creds)
+
+      @render_collection = collection
+
+      @router.navigate("order/"+@sprint.id, {trigger: true})
+
+
+
