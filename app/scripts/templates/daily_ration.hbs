@@ -1,10 +1,12 @@
 <h2 class="text-center">Your order for sprint #{{sprint.id}}</h2>
-{{#each order_items}}
+{{#each day}}
 	<div class='col-sm-3 well'>
-		<div>Sprint_id is {{sprint_id}}</div>
-		<div>Day id is {{day_id}}</div>
-		<div>Dish id is {{dish_id}}</div>
-		<div>Price is {{price}}</div>
-		<div>Quantity is {{quantity}}</div>
+		<div class="ordered_dish">
+		<h2>{{day_of_week day_number}}</h2>
+		{{#each order_item}}
+		{{! description and price are available}}
+			<div class="title_in_order">{{title}}<span class="pull-right">{{quantity}}</span></div>
+		{{/each}}
+		</div>
 	</div>
 {{/each}}

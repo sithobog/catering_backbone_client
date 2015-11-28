@@ -5,7 +5,12 @@ define [
   'templates'
 
   'views/panel'
-], ($, _, Backbone, JST, PanelView) ->
+
+  'collections/order_collection'
+  'models/order'
+
+  'helpers/days'
+], ($, _, Backbone, JST, PanelView, OrderCollection, OrderModel, DaysHelper) ->
   class DailyRationView extends Backbone.View
     template: JST['app/scripts/templates/daily_ration.hbs']
 
@@ -16,21 +21,18 @@ define [
     events: {}
 
     initialize: (options) ->
-      @collection = options.collection
+      self = this
       @sprint = options.sprint
-      console.log("COLLECTION BEFORE GROUP BY")
-      console.log(@collection)
+      order_collection = new OrderCollection(sprint: @sprint)
 
-      @grouped_collection = @collection.groupBy((model)->
-        model.get('day_id')
+      order_collection.fetch().then(()->
+        self.order_collection = order_collection
+        Backbone.pubSub.trigger('order-ready')
       )
 
-      console.log("COLLECTION AFTER GROUP BY")
-      console.log(@grouped_collection)
-      #this.bind("sync", this.render, this)
 
     render: () ->
-      @$el.html @template(sprint: @sprint, order_items: @collection.toJSON())
+      @$el.html @template(sprint: @sprint, day: @order_collection.toJSON())
 
       @panel.$el = @$('#user_panel')
       @panel.render()

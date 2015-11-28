@@ -35,11 +35,20 @@ define [
       @preOrderView = new PreOrderView(collection: @day_collection)
       @router = new Router()
 
+      Backbone.pubSub.on('order-ready', this.renderOrder, this)
+      Backbone.pubSub.on('rations-saved', this.redirectToOrder, this)
+
       this_view = this
       this_sprint = @sprint
       @router.on 'route:order', (sprint_id) ->
-        _view = new DailyRationView(sprint: this_sprint, collection: this_view.render_collection)
-        _view.render()
+        console.log("THIS SPRINT IS")
+        console.log(this_sprint)
+        console.log("VIEW IS CREATED")
+        this_view.viewOrder = new DailyRationView(sprint: this_sprint)#, collection: this_view.render_collection)
+
+    #this function is called then order collection is filled
+    renderOrder: ->
+      @viewOrder.render()
 
     listAccordion: (event) ->
       link_in_tab = $(event.target)
@@ -79,8 +88,10 @@ define [
 
       collection.fillCollection(creds)
 
-      @render_collection = collection
+      #@render_collection = collection
 
+    redirectToOrder: ->
+      
       @router.navigate("order/"+@sprint.id, {trigger: true})
 
 

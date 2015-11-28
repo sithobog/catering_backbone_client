@@ -52,3 +52,5 @@ define [
       #prepare collection for render
       this.reset(future_collection)
 
+      Backbone.pubSub.trigger('rations-saved')
+
