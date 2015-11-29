@@ -10,6 +10,7 @@ define [
   'models/sprint',
   'collections/sprints'
   'collections/day_collection'
+  'collections/order_collection'
 
   'views/contacts',
   'views/login',
@@ -17,8 +18,9 @@ define [
   'views/day_collection'
   'views/sprint'
   'views/form'
-], ($, _, Backbone, Router, AppView, Session, Sprint, SprintsCollection, DayCollection,
-     ContactsView, LoginView, SprintsCollectionView, DayCollectionView, SprintView, FormView) ->
+  'views/daily_ration'
+], ($, _, Backbone, Router, AppView, Session, Sprint, SprintsCollection, DayCollection, OrderCollection,
+     ContactsView, LoginView, SprintsCollectionView, DayCollectionView, SprintView, FormView, DailyRationView) ->
   class Application
 
     #activate pub/sub events
@@ -54,38 +56,39 @@ define [
       @router = new Router()
 
       @router.on 'route:login', (page) ->
-        _view = new LoginView()
-        _view.render()
+        view = new LoginView()
+        view.render()
 
       @router.on 'route:contacts', (page) ->
-        _view = new ContactsView()
-        _view.render()
+        view = new ContactsView()
+        view.render()
 
       @router.on 'route:sprints', (page) ->
         sprints = new SprintsCollection()
-        _view = new SprintsCollectionView(collection: sprints)
-        _view.render()
-
-      @router.on 'route:sprint', (sprint_id) ->
-        _collection1 = new SprintsCollection()
-        _collection1.fetch().then(()->
-          sprint = _collection1.get(sprint_id)
-          console.log(sprint)
-          _view = new SprintView(sprint: sprint)
-          _view.render()
-        )
+        view = new SprintsCollectionView(collection: sprints)
+        view.render()
 
       @router.on 'route:sprint_rations', (sprint_id) ->
         api_endpoint = Application.api_endpoint
-        _sprints_collection = new SprintsCollection()
-        _day_collection = new DayCollection()
-        
-        _sprints_collection.fetch().then(()->
-          sprint = _sprints_collection.get(sprint_id)
-          _day_collection.fetch().then(()->
-            AppView.showView(new FormView(sprint,_day_collection,api_endpoint))
+        sprints_collection = new SprintsCollection()
+        day_collection = new DayCollection()
+        order_collection = {}
+        sprint = {}
+        sprints_collection.fetch().then(()->
+          sprint = sprints_collection.get(sprint_id)
+          order_collection = new OrderCollection(sprint: sprint)
+        ).then(()->
+          #grab collection from server, if collection is empty, render form to create order
+          order_collection.fetch().then(()->
+            if order_collection.length == 0
+              day_collection.fetch().then(()->
+                AppView.showView(new FormView(sprint,day_collection,api_endpoint))
+              )
+            else
+              AppView.showView(new DailyRationView(sprint: sprint, collection: order_collection))
+            )
           )
-        )
+
 
       Backbone.history.start()
 

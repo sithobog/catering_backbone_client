@@ -23,12 +23,15 @@ define [
     initialize: (options) ->
       self = this
       @sprint = options.sprint
-      order_collection = new OrderCollection(sprint: @sprint)
+      if !options.collection
+        order_collection = new OrderCollection(sprint: @sprint)
 
-      order_collection.fetch().then(()->
-        self.order_collection = order_collection
-        Backbone.pubSub.trigger('order-ready')
-      )
+        order_collection.fetch().then(()->
+          self.order_collection = order_collection
+          Backbone.pubSub.trigger('order-ready')
+        )
+      else
+        @order_collection = options.collection
 
 
     render: () ->

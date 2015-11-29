@@ -37,7 +37,6 @@ define [
         type: 'GET'
         dataType: 'json'
         success:(res) ->
-          console.log("success fetch")
           self.response = res
         error: (res) ->
           console.log("error in fetch")

@@ -27,9 +27,7 @@ define [
       data = params
       #grab sprint_id from first array's element
       sprint_id = data.shift()["value"]
-      console.log("Sprint id is ...")
-      console.log(sprint_id)
-      future_collection = []
+      array_for_hash = []
       _.each(data, (obj)->
         #create valid json from string
         stringified = JSON.stringify(eval('('+obj["name"]+')'))
@@ -39,18 +37,35 @@ define [
         object["sprint_id"] = sprint_id
         object["quantity"] = obj["value"]
 
-        model = new DailyRationModel()
-        model.set(object)
-
         #fill collection with ready element
-        future_collection.push(model)
+        array_for_hash.push(object)
+      )
+      #prepare hash to send it on server
+      hash_to_send = {}
+      i = 0
+      _.each(array_for_hash, (mod)->
+        hash_to_send[i] = mod
+        i++
       )
 
-      #save collection on server
-      this.create(future_collection)
+      this.sendData(hash_to_send)
 
-      #prepare collection for render
-      this.reset(future_collection)
+    #this function triggers event that rations are saved on server
+    sendData: (array)->
+      this_url = @url
+      $.ajax(
+        type: "POST"
+        url: this_url
+        data: array
+        success:(res) ->
+          Backbone.pubSub.trigger('rations-saved')
+        error: (res) ->
+          console.log("error in POST")
+          console.log(res)
+      )
+      return
 
-      Backbone.pubSub.trigger('rations-saved')
+
+
+      
 

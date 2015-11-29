@@ -41,10 +41,7 @@ define [
       this_view = this
       this_sprint = @sprint
       @router.on 'route:order', (sprint_id) ->
-        console.log("THIS SPRINT IS")
-        console.log(this_sprint)
-        console.log("VIEW IS CREATED")
-        this_view.viewOrder = new DailyRationView(sprint: this_sprint)#, collection: this_view.render_collection)
+        this_view.viewOrder = new DailyRationView(sprint: this_sprint)
 
     #this function is called then order collection is filled
     renderOrder: ->
