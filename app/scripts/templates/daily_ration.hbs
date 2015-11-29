@@ -6,6 +6,11 @@
 		{{#each order_item}}
 		{{! description and price are available}}
 			<div class="title_in_order">{{title}}<span class="pull-right">{{quantity}}</span></div>
+			{{#each children}}
+			<div class="children">
+				<div>{{title}}</div>
+			</div>
+			{{/each}}
 		{{/each}}
 		</div>
 	</div>

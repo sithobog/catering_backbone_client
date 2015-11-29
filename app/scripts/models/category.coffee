@@ -13,7 +13,7 @@ define [
       dish_collection = options.collection
       models = new DishCollection()
       _.each(dish_collection, (dish)->
-        models.add(new DishModel(id: dish["id"], title: dish["title"], description: dish["description"], price: dish["price"]))
+        models.add(new DishModel(id: dish["id"],title: dish["title"], description: dish["description"], price: dish["price"], children: dish["children"], type: dish["type"]))
       )
 
       @nested_collection = models

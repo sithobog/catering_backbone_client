@@ -4,6 +4,11 @@
 		<p class="pull-right"><span class="price">{{price}}</span> UAH</p>
 		<span class="dish_title">{{title}}</span>
 		<p><b>{{description}}</b></p>
+		{{#each children}}
+			<div class="children">
+				<div>{{title}}</div>
+			</div>
+		{{/each}}
 		<div class="quantities">
 			<div>Quantities: </div>
 			<div class="number_field">
