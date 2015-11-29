@@ -3,7 +3,12 @@
 	<hr>
 	<div class="accordion">
 		{{#each days}}
-			<p class="day_name">{{day_of_week day_number}}</p>
+			<p class="day_header">
+				<span class="day_name">
+					{{day_of_week day_number}}
+				</span>
+				<span> - {{dateFormat ../sprint.started_at format="DD.MM.YY" offset=day_number}}</span>
+			</p>
 			<div class="clearfix items-container">
 				{{#each ../categories_id}}
 					<div class="day_order {{day_of_week ../day_number}} dish_in_category-{{this}}"></div>

@@ -31,8 +31,8 @@ define [
       @day_collection = collection
       @api_endpoint = api_endpoint
       @sprintView = new SprintView(sprint: @sprint)
-      @daysView = new DayCollectionView(@day_collection)
-      @preOrderView = new PreOrderView(collection: @day_collection)
+      @daysView = new DayCollectionView(collection: @day_collection, sprint: @sprint)
+      @preOrderView = new PreOrderView(collection: @day_collection, sprint: @sprint)
       @router = new Router()
 
       Backbone.pubSub.on('order-ready', this.renderOrder, this)

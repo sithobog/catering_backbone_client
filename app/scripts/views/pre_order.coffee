@@ -4,8 +4,8 @@ define [
   'jquery_ui'
   'backbone'
   'templates'
-
-], ($, _, ui, Backbone, JST, SprintModel) ->
+  'helpers/date_helper'
+], ($, _, ui, Backbone, JST, DateHelper) ->
   class SprintView extends Backbone.View
     template: JST['app/scripts/templates/pre_order.hbs']
 
@@ -16,6 +16,7 @@ define [
 
     initialize: (options) ->
       @collection = options.collection
+      @sprint = options.sprint
 
       #listen to events
       Backbone.pubSub.on('change-tab', this.checkActive)
@@ -56,7 +57,7 @@ define [
 
     render: () ->
       categories_id = _.pluck(@collection["models"][0]["attributes"]["categories"], 'id')
-      @$el.html @template(days: @collection.toJSON(), categories_id: categories_id)
+      @$el.html @template(days: @collection.toJSON(), categories_id: categories_id, sprint: @sprint.toJSON())
 
       #turn on jquery ui accordion widget
       $(".accordion").accordion({

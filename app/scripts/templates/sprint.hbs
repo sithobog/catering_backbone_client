@@ -1,10 +1,5 @@
 	<div class="sprint_body well clearfix">
-		<p class="state pull-right {{sprint.state}}">
-	  	{{sprint.state}}
-	  </p>
-		<p>{{sprint.title}}</p>
-	  <p>Start {{sprint.started_at}}</p>
-	  <p>End {{sprint.started_at}}</p>
-	  <input type="hidden" name="sprint_id" value="{{sprint.id}}">
-	  <a href="#sprints/{{sprint.id}}/rations">Order a food</a>
+		<div>Sprint {{sprint.id}}</div>
+		<div>Catering order for {{dateFormat sprint.started_at format="DD.MM.YYYY"}} - {{dateFormat sprint.finished_at format="DD.MM.YYYY"}}</div>
+		<input type="hidden" name="sprint_id" value="{{sprint.id}}">
   </div>

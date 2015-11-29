@@ -8,6 +8,7 @@ define [
   #'collections/sprints'
 
   'views/panel'
+  'helpers/date_helper'
 ], ($, _, Backbone, JST, SprintModel, PanelView) ->
   class SprintView extends Backbone.View
     template: JST['app/scripts/templates/sprint.hbs']

@@ -9,14 +9,16 @@ define [
   'views/categories_collection'
 
   'helpers/days'
-], ($, _, ui, Backbone, JST, DaysCollection, CategoriesCollectionView, DaysHelper) ->
+  'helpers/date_helper'
+], ($, _, ui, Backbone, JST, DaysCollection, CategoriesCollectionView, DaysHelper, DateHelper) ->
   class DayCollectionView extends Backbone.View
     template: JST['app/scripts/templates/day_collection.hbs']
 
     events: {}
 
-    initialize: (collection) ->
-      @collection = collection
+    initialize: (options) ->
+      @collection = options.collection
+      @sprint = options.sprint
       @collection.bind('sync', this.render, this)
       #create array of days_id
       days = []
@@ -43,7 +45,7 @@ define [
       this.collection.unbind("change", this.render)
 
     render: () ->
-      @$el.html @template(days: @collection.toJSON())
+      @$el.html @template(days: @collection.toJSON(), sprint: @sprint.toJSON())
 
       this.renderCategories()
 

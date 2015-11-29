@@ -19,7 +19,7 @@ hr.before_summary{
 	background-color: rgb(255,171,171) !important;
 }
 
-.day_name, .items-container{
+.day_header, .items-container{
 	background-color: rgb(171,221,170);
 }
 
@@ -29,7 +29,7 @@ hr.before_summary{
 }
 
 .pre-order{
-	.day_name{
+	.day_header{
 		text-align: center;
 		text-transform: capitalize;
 		margin: 0;
