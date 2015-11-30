@@ -103,8 +103,8 @@ define [
 
     checkAuth: ->
       if Session.get('auth') is true
-        @router.navigate("sprints", {trigger: true})
+        #@router.navigate("sprints", {trigger: true})
       else
-        @router.navigate("contacts", {trigger: true})
+        #@router.navigate("contacts", {trigger: true})
 
   return new Application()
