@@ -1,4 +1,16 @@
-<div class="user_panel clearfix">
-  <div class="logout pull-right">logout</div>
-  <p class="username pull-right">{{username}}</p>
-</div>
+<header class="container navbar navbar-default navbar-static-top">
+  <div class="navbar-header">
+    <button data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle" type="button">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <div class="visible-xs small_name">{{username}}</div>
+  </div>
+  <ul class="nav navbar-nav navbar-right collapse navbar-collapse">
+  	<li><span class="username hidden-xs" >{{username}}</span></li>
+  	<li><a href="#sprints">Sprints</a></li>
+    <li><span class="logout">logout</span></li>
+  </ul>
+</header>

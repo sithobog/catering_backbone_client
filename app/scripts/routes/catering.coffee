@@ -1,8 +1,10 @@
 define [
   'backbone'
-], (Backbone) ->
+ 	'models/session'
+], (Backbone, Session) ->
   class CateringRouter extends Backbone.Router
     routes:
+      "": "login"
       "login": "login"
       "contacts": "contacts"
       "sprints": "sprints"

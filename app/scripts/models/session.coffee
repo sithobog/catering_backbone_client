@@ -27,8 +27,7 @@ define [
         dataType: 'json',
         type: 'POST'
         success: (model, xhr, options) ->
-          #console.log('Success')
-          #console.log(model)
+          Backbone.pubSub.trigger("sign_in")
           sessionStorage.setItem('token', model.get('token'))
           sessionStorage.setItem('name', model.get('name'))
         error: (model, xhr, options) ->
@@ -48,6 +47,7 @@ define [
           self.id = null
           sessionStorage.removeItem('token')
           sessionStorage.removeItem('name')
+          Backbone.pubSub.trigger("sign_out")
           console.log("success logout")
           console.log(res)
         error: (res) ->

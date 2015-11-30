@@ -3,9 +3,10 @@ define [
   'underscore'
   'backbone'
   'templates'
+  'bootstrap'
 
   'models/session'
-], ($, _, Backbone, JST, Session) ->
+], ($, _, Backbone, JST, Bootstrap, Session) ->
   class PanelView extends Backbone.View
     template: JST['app/scripts/templates/panel.hbs']
 

@@ -1,17 +1,18 @@
-<p>Sign in</p>
+<div class="sign_in">
+  <form class="login">
+  <p>Sign in</p>
+    <div class="form_field">
+      <label for="email_field">Username</label>
+      <input id="email_field" name="email" type="email" required autofocus tabindex="1">
+    </div>
 
-<form class="login">
-  <div class="row">
-    <label for="">Username</label>
-    <input name="email" type="text" required autofocus tabindex="1">
-  </div>
+    <div class="form_field">
+      <label for="password_field">Password</label>
+      <input id="password_field" name="password" type="password" required tabindex="2">
+    </div>
 
-  <div class="row">
-    <label for="">Password</label>
-    <input name="password" type="password" required autofocus tabindex="2">
-  </div>
-
-  <div class="row">
-    <input type="submit" id="submit" value="Login" class="submit" tabindex="3">
-  </div>
-</form>
+    <div class="form_field">
+      <input class="btn btn-primary" type="submit" id="submit" value="Login" class="submit" tabindex="3">
+    </div>
+  </form>
+</div>

@@ -3,7 +3,6 @@ define [
   'underscore'
   'backbone'
   'templates'
-  'router'
 
   'views/sprint'
   'views/day_collection'
@@ -13,7 +12,7 @@ define [
 
   'collections/daily_ration_collection'
 
-], ($, _, Backbone, JST, Router, SprintView, DayCollectionView, PanelView, PreOrderView, DailyRationView, DailyRationCollection) ->
+], ($, _, Backbone, JST, SprintView, DayCollectionView, PanelView, PreOrderView, DailyRationView, DailyRationCollection) ->
   class DailyRationsFormView extends Backbone.View
     template: JST['app/scripts/templates/form.hbs']
 
@@ -33,19 +32,8 @@ define [
       @sprintView = new SprintView(sprint: @sprint)
       @daysView = new DayCollectionView(collection: @day_collection, sprint: @sprint)
       @preOrderView = new PreOrderView(collection: @day_collection, sprint: @sprint)
-      @router = new Router()
 
-      Backbone.pubSub.on('order-ready', this.renderOrder, this)
-      Backbone.pubSub.on('rations-saved', this.redirectToOrder, this)
-
-      this_view = this
-      this_sprint = @sprint
-      @router.on 'route:order', (sprint_id) ->
-        this_view.viewOrder = new DailyRationView(sprint: this_sprint)
-
-    #this function is called then order collection is filled
-    renderOrder: ->
-      @viewOrder.render()
+      Backbone.pubSub.on('rations-saved', this.callRoute, this)
 
     listAccordion: (event) ->
       link_in_tab = $(event.target)
@@ -85,11 +73,6 @@ define [
 
       collection.fillCollection(creds)
 
-      #@render_collection = collection
-
-    redirectToOrder: ->
-      
-      @router.navigate("order/"+@sprint.id, {trigger: true})
-
-
+    callRoute: ->
+      Backbone.pubSub.trigger('render_order',{sprint: @sprint})
 

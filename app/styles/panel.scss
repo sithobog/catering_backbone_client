@@ -8,6 +8,19 @@
 	font-size: 16px;
 	font-family: sans;
 	border-right: 1px solid #ccc;
+	line-height: 51px;
+	font-weight: bold;
+	text-transform: capitalize;
+}
+
+.small_name{
+	float: right;
+	font-size: 16px;
+	font-family: sans;
+	line-height: 51px;
+	text-transform: capitalize;
+	margin-right: 10px;
+	font-weight: bold;
 }
 
 .logout{
@@ -16,7 +29,22 @@
 	color: #005392;
 	font-size: 14px;
 	cursor: pointer;
+	line-height: 51px;
+	text-transform: capitalize;
+	font-weight: bold;
 	&:hover{
 		text-decoration: underline;
+	}
+}
+
+@media (min-width: 768px){
+	.logout{
+		margin-left: 0;
+	}
+}
+
+@media (max-width: 768px){
+	.logout{
+		margin-left: 10px;
 	}
 }

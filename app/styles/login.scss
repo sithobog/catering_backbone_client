@@ -1,0 +1,32 @@
+.sign_in{
+	margin: 0 auto;
+	width: 400px;
+	border: 1px solid silver;
+	border-radius: 2px;
+	box-shadow: 0 0 10px #286090;
+	p{
+		margin-top: 15px;
+		font-size: 20px;
+		font-weight: bold;
+		text-align: center;
+	}
+}
+
+form.login{
+	label,input{
+		margin-left: 30%;
+	}
+	label{
+		display: block;
+	}
+	input{
+		width: 40%;
+	}
+	input[type=submit]{
+		margin: 25px 0 25px 30%;
+		font-weight: bold;
+	}
+	input[type=email],input[type=password]{
+		border-radius: 4px;
+	}
+}
