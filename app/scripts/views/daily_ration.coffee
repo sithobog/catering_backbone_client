@@ -21,7 +21,7 @@ define [
 
     panel: new PanelView()
 
-    events: {}
+    events: {"click .business_lunch" : "triggerBusinessLunch"}
 
     initialize: (options) ->
       self = this
@@ -35,6 +35,11 @@ define [
         )
       else
         @order_collection = options.collection
+
+    triggerBusinessLunch: ->
+      business_lunch = $(event.target).closest(".order_body")
+      children = business_lunch.find(".children")
+      children.slideToggle("slow")
 
     findToday: ->
       f = "DD_MM_YY"

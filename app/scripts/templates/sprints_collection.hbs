@@ -1,12 +1,12 @@
 <div id="user_panel"></div>
 {{#each sprints}}
-	<div class="sprint_body well clearfix">
-		<p class="state pull-right {{state}}">
-	  	{{state}}
-	  </p>
-		<p>{{title}}</p>
-	  <p>Start {{dateFormat started_at}}</p>
-	  <p>End {{dateFormat finished_at}}</p>
-	  <a href="#sprints/{{id}}/rations">Order a food</a>
+  <div class="sprint_body well clearfix">
+    <p class="state pull-right {{state}}">
+      {{state}}
+    </p>
+    <p>{{title}}</p>
+    <p>Start {{dateFormat started_at}}</p>
+    <p>End {{dateFormat finished_at}}</p>
+    <a href="#sprints/{{id}}/rations">Order a food</a>
   </div>
 {{/each}}

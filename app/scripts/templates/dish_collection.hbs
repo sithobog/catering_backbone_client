@@ -1,22 +1,30 @@
+<hr>
 {{#each dishes}}
-	<div class="well dish_body col-sm-6 clearfix" data-dish-id="{{id}}">
-		<input type="checkbox">
-		<p class="pull-right"><span class="price">{{price}}</span> UAH</p>
-		<span class="dish_title">{{title}}</span>
-		<p><b>{{description}}</b></p>
-		{{#each children}}
-			<div class="children">
-				<div>{{title}}</div>
-			</div>
-		{{/each}}
-		<div class="quantities">
-			<div>Quantities: </div>
-			<div class="number_field">
-				<button class="trigger_disabled minus" data-value="-1" disabled>-</button>
-				<input type="number" class="form-control quantity trigger_disabled" disabled
-			              name="{day_id:'{{../day_id}}',dish_id:'{{id}}',price:'{{price}}'}" value="1" min="0">
-			  <button class="plus trigger_disabled" data-value="1" disabled>+</button>
-		  </div>
-	  </div>
-	</div>
+  <div class="dish_body col-sm-6 clearfix" data-dish-id="{{id}}">
+    <input type="checkbox">
+    <p class="pull-right"><span class="price">{{price}}</span> UAH</p>
+    <span class="dish_title">{{title}}</span>
+    {{#if children}}
+      <span class="business_lunch">
+        BL
+      </span>
+    {{/if}}
+    <p><b>{{description}}</b></p>
+    {{#if children}}
+      <div class="children">
+      {{#each children}}
+        <div>- {{title}}</div>
+      {{/each}}
+      </div>
+    {{/if}}
+    <div class="quantities">
+      <div>Quantities: </div>
+      <div class="number_field">
+        <button class="trigger_disabled minus" data-value="-1" disabled>-</button>
+        <input type="number" class="form-control quantity trigger_disabled" disabled
+                    name="{day_id:'{{../day_id}}',dish_id:'{{id}}',price:'{{price}}'}" value="1" min="0">
+        <button class="plus trigger_disabled" data-value="1" disabled>+</button>
+      </div>
+    </div>
+  </div>
 {{/each}}

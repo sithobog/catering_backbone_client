@@ -1,12 +1,12 @@
 {{#each days}}
-	<div id="tabs-{{day_number}}" class="day_body clearfix">
-		<p>
-			<span class="current_day">{{day_of_week day_number}}</span>
-			<span> {{dateFormat ../sprint.started_at format="DD.MM.YY" offset=day_number}}</span>
-		</p>
-		<div class="row">
-			<div class="categories-{{day_number}}">
-			</div>
-		</div>
+  <div id="tabs-{{day_number}}" class="day_body clearfix">
+    <p class="day_of_week_and_date">
+      <span class="current_day">{{day_of_week day_number}}</span>
+      <span> {{dateFormat ../sprint.started_at format="DD.MM.YY" offset=day_number}}</span>
+    </p>
+    <div class="row">
+      <div class="categories-{{day_number}}">
+      </div>
+    </div>
   </div>
 {{/each}}

@@ -22,7 +22,7 @@ define [
     panel: new PanelView()
 
     events: {
-      "click button.btn-primary": "submit"
+      "click button.send_order": "submit"
       "click .ui-tabs-anchor": "listAccordion"
     }
 

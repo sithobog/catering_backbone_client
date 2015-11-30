@@ -1,25 +1,27 @@
 <div class="pre-order">
-	<p class="order_summary">Order summary</p>
-	<hr>
-	<div class="accordion">
-		{{#each days}}
-			<p class="day_header">
-				<span class="day_name">
-					{{day_of_week day_number}}
-				</span>
-				<span> - {{dateFormat ../sprint.started_at format="DD.MM.YY" offset=day_number}}</span>
-			</p>
-			<div class="clearfix items-container">
-				{{#each ../categories_id}}
-					<div class="day_order {{day_of_week ../day_number}} dish_in_category-{{this}}"></div>
-				{{/each}}
-				<hr class="before_summary">
-				<p class="pull-left">Order total:<span class="order_total"></span> </p>
-				<p class="pull-right">Left: <span class="remaining_balance">{{max_total}}</span></p>
-			</div>
-		{{/each}}
-	</div>
-	<button class="previous btn btn-default" data-change-day="-1">Previous day</button>
-	<button class="next btn btn-default" data-change-day="1">Next day</button>
-	<button class="btn btn-primary">Send order!</button>
+  <p class="order_summary">Order summary</p>
+  <hr>
+  <div class="accordion">
+    {{#each days}}
+      <p class="day_header">
+        <span class="day_name">
+          {{day_of_week day_number}}
+        </span>
+        <span> - {{dateFormat ../sprint.started_at format="DD.MM.YY" offset=day_number}}</span>
+      </p>
+      <div class="clearfix items-container">
+        {{#each ../categories_id}}
+          <div class="day_order {{day_of_week ../day_number}} dish_in_category-{{this}}"></div>
+        {{/each}}
+        <hr class="before_summary">
+        <p class="order_total_label">Order total: <span class="order_total"></span> </p>
+        <p class="left_money_label">Left: <span class="remaining_balance">{{max_total}}</span></p>
+      </div>
+    {{/each}}
+  </div>
+  <div class="button_container clearfix">
+    <button class="change_day previous btn btn-default" data-change-day="-1">Previous day</button>
+    <button class="change_day next btn btn-default" data-change-day="1">Next day</button>
+  </div>
+  <button class="btn btn-default send_order">Send order!</button>
 </div>

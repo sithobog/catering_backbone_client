@@ -15,6 +15,7 @@ define [
       "click .minus, .plus": "changeInputValue"
       "change input[type=number]": "updateQuantity"
       "keyup input[type=number]": "updateQuantity"
+      "click .business_lunch" : "triggerBusinessLunch"
     }
 
     initialize: (options) ->
@@ -75,6 +76,11 @@ define [
 
       # re-calculate price
       this.calculatePrice()
+
+    triggerBusinessLunch: ->
+      business_lunch = $(event.target).closest(".dish_body")
+      children = business_lunch.find(".children")
+      children.slideToggle("slow")
 
     filterCollection: ->
       #fill DishCollection with active dishes for render

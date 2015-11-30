@@ -1,68 +1,3 @@
-hr{
-	margin: 0 0 5px 0;
-	border-top: 1px solid rgb(227,228,230);
-}
-
-hr.before_summary{
-	margin: 10px 5px;
-	border-top: 1px solid rgb(237,231,219);
-}
-
-.pre-order{
-	border: 1px solid rgb(145,158,141);
-	background: #fff;
-	border-radius: 10px;
-	padding: 15px;
-}
-
-.outspend{
-	background-color: rgb(255,171,171) !important;
-}
-
-.day_header, .items-container{
-	background-color: rgb(171,221,170);
-}
-
-.items-container{
-	border:1px solid rgb(145,158,141);
-	border-top: none;
-}
-
-.pre-order{
-	.day_header{
-		text-align: center;
-		text-transform: capitalize;
-		margin: 0;
-		border:1px solid rgb(145,158,141);
-	}
-	.day_order{
-		padding: 0 8px;
-	}
-}
-
-.pre-order{
-	.previous{
-		color: white;
-		background-color: rgb(0,153,255);
-		&:hover{
-			background-color: rgb(0, 204, 255);
-		}
-	}
-	.next{
-		color: white;
-		background-color: rgb(255,102,0);
-		&:hover{
-			background-color: rgb(255, 153, 0);
-		}
-	}
-}
-
-.order_summary{
-	margin: 0;
-	font-size: 18px;
-	text-align: center;
-}
-
 .price_for_dish, .currency{
 	font-weight: bold;
 }
@@ -77,6 +12,17 @@ hr.before_summary{
 
 .ui-tabs-anchor, .current_day{
 	text-transform: capitalize;
+}
+
+.category_title{
+	text-transform: capitalize;
+}
+
+.day_of_week_and_date{
+	font-size: 20px;
+	text-align: center;
+	margin-top: 20px;
+	font-family: Arial;
 }
 
 

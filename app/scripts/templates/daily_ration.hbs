@@ -1,22 +1,31 @@
 <header id="user_panel"></header>
 <h2 class="your_order">Your order for this week</h2>
 {{#each day}}
-	<div class='col-sm-3'>
-		<div class="order_body {{generateDate ../sprint.started_at offset=day_number}}">
-		<p class="order_day">
-			{{day_of_week day_number}}, <span class="date_in_order">{{dateFormat ../sprint.started_at format="DD.MM.YY" offset=day_number}}</span>
-		</p>
-			<ol class="ordered_dish">
-			{{#each order_item}}
-			{{! description and price are available}}
-				<li class="title_in_order">{{title}}<span class="pull-right">{{quantity}}</span></li>
-				{{#each children}}
-				<div class="children">
-					<div>{{title}}</div>
-				</div>
-				{{/each}}
-			{{/each}}
-			</ol>
-		</div>
-	</div>
+  <div class='col-sm-3'>
+    <div class="order_body {{generateDate ../sprint.started_at offset=day_number}}">
+    <p class="order_day">
+      {{day_of_week day_number}}, <span class="date_in_order">{{dateFormat ../sprint.started_at format="DD.MM.YY" offset=day_number}}</span>
+    </p>
+      <ol class="ordered_dish">
+      {{#each order_item}}
+      {{! description and price are available}}
+        <li class="title_in_order">{{title}}
+        {{#if children}}
+          <span class="business_lunch">
+          BL
+          </span>
+        {{/if}}
+        <span class="pull-right">{{quantity}}</span>
+        {{#if children}}
+          <div class="children">
+          {{#each children}}
+            <div>- {{title}}</div>
+          {{/each}}
+          </div>
+        {{/if}}
+        </li>
+      {{/each}}
+      </ol>
+    </div>
+  </div>
 {{/each}}
